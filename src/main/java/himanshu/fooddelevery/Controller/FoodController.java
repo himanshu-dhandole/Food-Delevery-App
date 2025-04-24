@@ -1,22 +1,24 @@
 package himanshu.fooddelevery.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import himanshu.fooddelevery.Repository.FoodRepo;
 import himanshu.fooddelevery.RequestDTO.FoodRequest;
 import himanshu.fooddelevery.ResponseDTO.FoodResponse;
-import himanshu.fooddelevery.Service.UploadService;
+import himanshu.fooddelevery.Service.FoodService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/food")
 @AllArgsConstructor
 public class FoodController {
 
-    private final UploadService uploadService ;
+    private final FoodService uploadService ;
+    private final FoodRepo foodRepo;
 
     @PostMapping
     public FoodResponse addFood(@RequestPart("food") String foodString ,
@@ -31,5 +33,22 @@ public class FoodController {
         }
         FoodResponse foodResponse = uploadService.addFood(foodRequest, file);
         return foodResponse;
+    }
+
+
+    @GetMapping
+    public List<FoodResponse> displayFoods() {
+        return uploadService.displayFoods() ;
+    }
+
+    @GetMapping("/{id}")
+    public FoodResponse displayFoodById(@PathVariable String id) {
+        return uploadService.displayFood(id) ;
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFood(@PathVariable String id) {
+        uploadService.deleteFood(id) ;
     }
 }
