@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface RegisterService {
    RegisterResponse registerUser(RegisterRequest request) ;
+   String findUserById() ;
 }
