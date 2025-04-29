@@ -1,14 +1,14 @@
 package himanshu.fooddelevery.Controller;
 
 
+import himanshu.fooddelevery.RequestDTO.CartRequest;
+import himanshu.fooddelevery.ResponseDTO.CartResponse;
 import himanshu.fooddelevery.Service.CartService;
-import himanshu.fooddelevery.Service.RegisterService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ThemeResolver;
 
 import java.util.Map;
 
@@ -18,15 +18,36 @@ import java.util.Map;
 public class CartController {
 
     private final CartService cartService;
+    private final ThemeResolver themeResolver;
 
     @PostMapping
-    public ResponseEntity<?> addToCart (@RequestBody Map<String , String> request) {
-        String foodId = request.get("foodId") ;
+    public CartResponse addToCart (@RequestBody CartRequest request) {
+        String foodId = request.getFoodId() ;
         if(foodId == null || foodId.isEmpty()) {
-            return ResponseEntity.badRequest().body("Food ID is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "Food ID is required") ;
         }
-        cartService.addToCart(foodId);
-        return ResponseEntity.ok().body(null);
+       return cartService.addToCart(request);
+    }
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public CartResponse getCart() {
+        return cartService.getCart() ;
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void clearCart () {
+        cartService.clearCart();
+    }
+
+    @PostMapping("/remove")
+    @ResponseStatus(HttpStatus.OK)
+    public CartResponse deleteItem (@RequestBody CartRequest request) {
+        String foodId = request.getFoodId() ;
+        if(foodId == null || foodId.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "Food ID is required") ;
+        }
+        return cartService.deleteItem(request);
     }
 
 }

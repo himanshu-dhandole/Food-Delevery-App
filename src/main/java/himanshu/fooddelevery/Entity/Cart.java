@@ -22,8 +22,9 @@ public class Cart {
     private String userId ;
     private Map<String , Integer> items = new HashMap<>();
 
-    public Cart (String id , Map<String , Integer> items ) {
-        this.id = id;
-        this.items = items ;
+    public Cart(String userId, Map<String, Integer> items) {
+        this.userId = userId;
+        this.items = items;
     }
+
 }
