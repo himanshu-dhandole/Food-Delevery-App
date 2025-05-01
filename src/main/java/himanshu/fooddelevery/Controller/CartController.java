@@ -8,9 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.ThemeResolver;
 
-import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -18,7 +16,7 @@ import java.util.Map;
 public class CartController {
 
     private final CartService cartService;
-    private final ThemeResolver themeResolver;
+
 
     @PostMapping
     public CartResponse addToCart (@RequestBody CartRequest request) {
