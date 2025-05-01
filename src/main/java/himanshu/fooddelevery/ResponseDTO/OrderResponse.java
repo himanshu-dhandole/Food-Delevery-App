@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.Map;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -18,6 +21,7 @@ public class OrderResponse {
     private String email;
     private double amount ;
     private String paymentStatus;
-    private String RazorPayOrderId;
-    private String OrderStatus;
+    private String razorPayOrderId;
+    private String orderStatus;
+    private List<OrderItem> orderedItems ;
 }

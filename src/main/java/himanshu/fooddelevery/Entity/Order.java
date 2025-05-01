@@ -28,6 +28,7 @@ public class Order {
     private String paymentStatus;
     private String razorPayOrderId;
     private String razorPaySignature;
+    private String razorPayPaymentId;
     private String orderStatus;
 
 }
