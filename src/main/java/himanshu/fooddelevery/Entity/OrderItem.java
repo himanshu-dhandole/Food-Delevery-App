@@ -16,5 +16,5 @@ public class OrderItem {
     private String category ;
     private String imageUrl ;
     private String description ;
-    private List<OrderItem> orderedItems;
+//    private List<OrderItem> orderedItems;
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class LoggingAspect {
 
     // Log before method execution
-    @Before("execution(* himanshu.fooddelevery.services.*.*(..))")
+    @Before("execution(* himanshu.fooddelevery.service.*.*(..))")
     public void logBefore(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         log.info("➡️ Entering method: {}()", methodName);
@@ -26,14 +26,14 @@ public class LoggingAspect {
     }
 
     // Log when an exception is thrown
-    @AfterThrowing(pointcut = "execution(* himanshu.fooddelevery.services.*.*(..))", throwing = "error")
+    @AfterThrowing(pointcut = "execution(* himanshu.fooddelevery.service.*.*(..))", throwing = "error")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable error) {
         String methodName = joinPoint.getSignature().getName();
         log.error("❌ Exception in method: {}() with error: {}", methodName, error.getMessage());
     }
 
     // Log execution time of method
-    @Around("execution(* himanshu.fooddelevery.services.*.*(..))")
+    @Around("execution(* himanshu.fooddelevery.service.*.*(..))")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
         Object proceed = joinPoint.proceed();

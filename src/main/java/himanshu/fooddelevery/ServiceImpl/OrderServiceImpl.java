@@ -31,10 +31,10 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private CartRepo cartRepo;
 
-    @Value("${razorpay_apiKey}")
-    private String RAZORPAY_API_KEY;
-    @Value("${razorpay_secretKey}")
-    private String RAZORPAY_SECRET_KEY;
+    @Value("${razorpay.apiKey}")
+    private String apiKey;
+    @Value("${razorpay.secretKey}")
+    private String secretKey;
 
     @Override
     public OrderResponse createOrderWithPayment(OrderRequest request) throws RazorpayException {
@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
         order = orderRepo.save(order);
 
         // new razorpay payment order
-        RazorpayClient razorpayClient = new RazorpayClient(RAZORPAY_API_KEY, RAZORPAY_SECRET_KEY);
+        RazorpayClient razorpayClient = new RazorpayClient(apiKey, secretKey);
         JSONObject orderRequest = new JSONObject();
         orderRequest.put("amount", (int)(order.getAmount() * 100));
         orderRequest.put("currency", "INR");

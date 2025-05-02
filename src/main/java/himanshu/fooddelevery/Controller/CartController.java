@@ -32,7 +32,7 @@ public class CartController {
         return cartService.getCart() ;
     }
 
-    @DeleteMapping
+    @DeleteMapping("/clear")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void clearCart () {
         cartService.clearCart();
