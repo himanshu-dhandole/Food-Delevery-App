@@ -55,7 +55,7 @@ public class SecurityConfig {
     @Bean
     public UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:5174"));
+        config.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:5174" , "https://foodfactory-arc.netlify.app/"));
         config.setAllowedMethods(List.of("*"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
